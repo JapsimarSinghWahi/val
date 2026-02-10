@@ -1,109 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Be My Valentine because you are my Jaan. Goba ❤️</title>
+  <meta charset="UTF-8" />
+  <title>Be My Valentine 💖</title>
   <style>
     body {
-      font-family: "Comic Sans MS", cursive, sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ffe6eb;
     }
 
     .card {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
       position: relative;
-      width: 350px;
+      width: 320px;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     }
 
     h1 {
-      color: #ff4d6d;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 18px;
       margin-bottom: 30px;
     }
 
+    .buttons {
+      position: relative;
+      height: 60px; /* IMPORTANT: reserve space */
+    }
+
     button {
-      padding: 12px 24px;
-      font-size: 18px;
+      padding: 12px 20px;
+      font-size: 16px;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      position: absolute;
     }
 
     #yes {
-      background-color: #ff4d6d;
+      background: #ff4d6d;
       color: white;
-      left: 60px;
-      bottom: 30px;
+      margin-right: 10px;
     }
 
     #no {
-      background-color: #adb5bd;
-      color: white;
-      right: 60px;
-      bottom: 30px;
-    }
-
-    .love {
-      font-size: 22px;
-      color: #ff4d6d;
-      display: none;
-      margin-top: 20px;
+      position: absolute; /* KEY FIX */
+      background: #ccc;
+      color: black;
+      left: 160px;
+      top: 0;
+      transition: transform 0.2s ease;
     }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <h1>Hey Love ❤️</h1>
-    <p>Will you be my Valentine?</p>
+    <h1>Will you be my Valentine, Goba? 💘</h1>
 
-    <button id="yes">Yes 💕</button>
-    <button id="no">No 🙈</button>
+    <div class="buttons">
+      <button id="yes" onclick="alert('Yay! 💖 I love you!')">
+        Yes
+      </button>
 
-    <div class="love" id="loveMsg">
-      YAY!!! I knew it 🥰💖<br>
-      Happy Valentine’s Day, my forever ❤️
+      <button id="no">
+        No
+      </button>
     </div>
   </div>
 
   <script>
     const noBtn = document.getElementById("no");
-    const yesBtn = document.getElementById("yes");
-    const loveMsg = document.getElementById("loveMsg");
+    const container = document.querySelector(".buttons");
 
-    noBtn.addEventListener("mouseover", () => {
-      const card = document.querySelector(".card");
-      const cardRect = card.getBoundingClientRect();
+    function moveButton() {
+      const containerRect = container.getBoundingClientRect();
 
-      const maxX = cardRect.width - noBtn.offsetWidth;
-      const maxY = cardRect.height - noBtn.offsetHeight;
+      const maxX = containerRect.width - noBtn.offsetWidth;
+      const maxY = containerRect.height - noBtn.offsetHeight;
 
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
 
-      noBtn.style.left = `${randomX}px`;
-      noBtn.style.top = `${randomY}px`;
-    });
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
 
-    yesBtn.addEventListener("click", () => {
-      yesBtn.style.display = "none";
-      noBtn.style.display = "none";
-      loveMsg.style.display = "block";
-    });
+    // Runs when mouse comes near / hover
+    noBtn.addEventListener("mouseenter", moveButton);
+
+    // Optional: also trigger when scrolling near it
+    window.addEventListener("scroll", moveButton);
   </script>
 
 </body>
