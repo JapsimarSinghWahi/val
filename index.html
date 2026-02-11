@@ -1,99 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Be My Valentine 💖</title>
-  <style>
-    body {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-      background: #ffe6eb;
-    }
+<meta charset="UTF-8">
+<title>Be My Valentine 💖</title>
 
-    .card {
-      position: relative;
-      width: 320px;
-      padding: 30px;
-      background: white;
-      border-radius: 16px;
-      text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    h1 {
-      margin-bottom: 30px;
-    }
+  body {
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    
+    /* 🔥 Replace this with your image */
+    background: url("background.jpg") no-repeat center center/cover;
 
-    .buttons {
-      position: relative;
-      height: 60px; /* IMPORTANT: reserve space */
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    button {
-      padding: 12px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+  .card {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
 
-    #yes {
-      background: #ff4d6d;
-      color: white;
-      margin-right: 10px;
-    }
+  h1 {
+    margin-bottom: 30px;
+    font-size: 28px;
+  }
 
-    #no {
-      position: absolute; /* KEY FIX */
-      background: #ccc;
-      color: black;
-      left: 160px;
-      top: 0;
-      transition: transform 0.2s ease;
-    }
-  </style>
+  button {
+    padding: 14px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+  }
+
+  #yes {
+    background: #ff4d6d;
+    color: white;
+  }
+
+  #no {
+    position: absolute; /* IMPORTANT */
+    background: #ccc;
+    color: black;
+    transition: 0.2s ease;
+  }
+</style>
 </head>
+
 <body>
 
-  <div class="card">
-    <h1>Will you be my Valentine, Goba? 💘</h1>
+<div class="card">
+  <h1>Will you be my Valentine, Goba? 💘</h1>
+  <button id="yes" onclick="celebrate()">Yes 💖</button>
+</div>
 
-    <div class="buttons">
-      <button id="yes" onclick="alert('Yay! 💖 I love you!')">
-        Yes
-      </button>
+<button id="no">No 😢</button>
 
-      <button id="no">
-        No
-      </button>
-    </div>
-  </div>
+<script>
+  const noBtn = document.getElementById("no");
 
-  <script>
-    const noBtn = document.getElementById("no");
-    const container = document.querySelector(".buttons");
+  function moveButton() {
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
 
-    function moveButton() {
-      const containerRect = container.getBoundingClientRect();
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
 
-      const maxX = containerRect.width - noBtn.offsetWidth;
-      const maxY = containerRect.height - noBtn.offsetHeight;
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+  }
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+  // Runs when cursor comes near it
+  noBtn.addEventListener("mouseenter", moveButton);
 
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    }
+  // Optional: also run if user scrolls
+  window.addEventListener("scroll", moveButton);
 
-    // Runs when mouse comes near / hover
-    noBtn.addEventListener("mouseenter", moveButton);
-
-    // Optional: also trigger when scrolling near it
-    window.addEventListener("scroll", moveButton);
-  </script>
+  function celebrate() {
+    document.body.innerHTML = `
+      <div style="
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-size:40px;
+        color:white;
+        background:linear-gradient(45deg,#ff4d6d,#ff8fa3);
+      ">
+        YAYYYY 💖💖💖 I LOVE YOU!!!
+      </div>
+    `;
+  }
+</script>
 
 </body>
 </html>
